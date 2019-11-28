@@ -13,16 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::get('list','Users@list');
+// Route::get('list','Users@list');
+//Route::post('login', [ 'as' => 'login', 'uses' => 'API\UserController@login']);
 
+Route::post('login', 'API\UserController@login')->name('login');
 
-Route::post('login', 'API\UserController@login');
-Route::post('register', 'API\UserController@register');
+Route::post('register', 'API\UserController@register')->name('register');
 
 Route::group(['middleware' => 'auth:api'], function(){
-   Route::post('details', 'API\UserController@details');
+   Route::post('details', 'API\UserController@details')->name('details');
+   Route::post('product', 'API\Products@save')->name('product');
+   Route::post('updateproduct', 'API\Products@update')->name('update');
 });
